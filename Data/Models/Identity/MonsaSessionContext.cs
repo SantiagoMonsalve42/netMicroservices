@@ -96,6 +96,10 @@ public partial class MonsaSessionContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("APELLIDO");
+            entity.Property(e => e.NumeroDocumento)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("NUMERO_DOCUMENTO");
             entity.Property(e => e.Email)
                 .HasMaxLength(2000)
                 .IsUnicode(false)

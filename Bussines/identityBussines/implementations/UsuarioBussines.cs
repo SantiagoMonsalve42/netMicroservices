@@ -27,7 +27,8 @@ namespace Bussines.identityBussines.implementations
         {
             user.Password = stringUtil.GetSHA256(user.Password);
             var usuarioPorEmail = await _data.GetUsuarioAsync(user.Email);
-            if (usuarioPorEmail != null)
+            var usuarioPorID = await _data.GetUsuarioDocumentoAsync(user.NumeroDocumento);
+            if (usuarioPorEmail != null || usuarioPorID != null)
             {
                 return false;
             }
@@ -41,9 +42,17 @@ namespace Bussines.identityBussines.implementations
             LoginResponseDTO respuesta = new LoginResponseDTO();
             user.Pass = stringUtil.GetSHA256(user.Pass);
             var usuarioPorEmail = await _data.GetUsuarioAsync(user.Email);
-            var objLog = await _auditoria.createRegistro(usuarioPorEmail.IdUsuario, "LOGIN APLICACION");
-            if (usuarioPorEmail.Password ==  user.Pass
-              && usuarioPorEmail.Email == user.Email)
+            TblLogAuditoria objLog;
+            if ( usuarioPorEmail != null)
+            {
+                objLog = await _auditoria.createRegistro(usuarioPorEmail.IdUsuario, "LOGIN APLICACION");
+            }
+            else{
+                objLog = await _auditoria.createRegistro(0, "LOGIN APLICACION");
+            }
+            
+            if (usuarioPorEmail?.Password ==  user.Pass
+              && usuarioPorEmail?.Email == user.Email)
             {
                 string token = stringUtil.GenerateToken(user,usuarioPorEmail.IdUsuario);
                 usuarioPorEmail.UltimoToken = token;

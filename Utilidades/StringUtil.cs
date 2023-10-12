@@ -27,15 +27,18 @@ namespace Utilidades
         }
         public string GenerateToken(LoginRequestDTO user,long idPersona)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var key = _config["JWT:Key"];
+            var Issuer = _config["JWT:Issuer"];
+            var Audience = _config["JWT:Audience"];
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
                 new Claim("email",user.Email),
                 new Claim("idPersona",idPersona.ToString()),
             };
-            var token = new JwtSecurityToken(_config["JTW:Issuer"],
-                _config["JTW:Audience"],
+            var token = new JwtSecurityToken(Issuer,
+                Audience,
                 claims,
                 expires: DateTime.Now.AddMinutes(15),
                 signingCredentials: credentials);

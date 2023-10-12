@@ -50,6 +50,18 @@
           "Port": 5003
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Producto/{everything}",
+      "UpstreamHttpMethod": [ "Get","Post" ],
+      "DownstreamPathTemplate": "/api/Producto/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ]
     }
   ]
   }

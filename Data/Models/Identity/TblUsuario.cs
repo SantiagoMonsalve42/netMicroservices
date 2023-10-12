@@ -14,6 +14,7 @@ public partial class TblUsuario
     public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
+    public string NumeroDocumento { get; set; } = null!;
 
     public long IdTipoDocumento { get; set; }
     public DateTime? UltimaSesion { get; set; }

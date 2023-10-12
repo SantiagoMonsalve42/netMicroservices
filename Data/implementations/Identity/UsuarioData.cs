@@ -24,6 +24,7 @@ namespace Data.interfaces.Identity
                               IdTipoDocumento = user.IdTipoDocumento,
                               Password = user.Password,
                               Apellido = user.Apellido,
+                              NumeroDocumento = user.NumeroDocumento,
                         });
         }
 
@@ -38,7 +39,11 @@ namespace Data.interfaces.Identity
             var result = await (from row in Repository.Entity where row.Email == email select row).FirstOrDefaultAsync();
             return result;
         }
-
+        public async Task<TblUsuario> GetUsuarioDocumentoAsync(string id)
+        {
+            var result = await (from row in Repository.Entity where row.NumeroDocumento == id select row).FirstOrDefaultAsync();
+            return result;
+        }
         public async Task<TblUsuario> UpdateAsync(TblUsuario user)
         {
             return await Repository.Put(user); 

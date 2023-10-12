@@ -9,6 +9,7 @@ namespace Data.interfaces.Identity
         Task<TblUsuario> CreateAsync(RegistroRequestDTO user);
         Task<TblUsuario> UpdateAsync(TblUsuario user);
         Task<TblUsuario> GetUsuarioAsync(string email);
+        Task<TblUsuario> GetUsuarioDocumentoAsync(string email);
 
     }
 }
